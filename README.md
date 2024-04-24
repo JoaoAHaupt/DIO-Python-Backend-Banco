@@ -8,10 +8,4 @@
 </div>
 
 
-<style>
-    .purple {
-        color: mediumpurple;
-    }
-</style>
-
 
