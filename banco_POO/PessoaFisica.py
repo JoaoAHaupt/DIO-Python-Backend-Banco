@@ -19,23 +19,26 @@ class PessoaFisica(Cliente):
     def nome(self):
         return self._nome
 
+    def __str__(self):
+        return f"PessoaFisica(nome={self.nome}, cpf={self.cpf})"
 
 
-def novo_usuario(clientes):
-    nome = input("Insira seu nome: ")
-    cpf = input("Insira seu cpf: ")
-    data_de_nascimento = input("Insira sua data de nascimento: ")
-    cep = input("Insira seu cep: ")
+    @staticmethod
+    def novo_usuario(clientes):
+        nome = input("Insira seu nome: ")
+        cpf = input("Insira seu cpf: ")
+        data_de_nascimento = input("Insira sua data de nascimento: ")
+        cep = input("Insira seu cep: ")
 
-    if not buscar_cpf(clientes, cpf):
-        if validar_cpf(cpf):
-            novo = PessoaFisica(cpf, nome, data_de_nascimento, cep)
-            clientes.append(novo)
-            return f"Usuario: {novo.nome} acabou de ser cadastrado!"
+        if not buscar_cpf(clientes, cpf):
+            if validar_cpf(cpf):
+                novo = PessoaFisica(cpf, nome, data_de_nascimento, cep)
+                clientes.append(novo)
+                return f"Usuario: {novo.nome} acabou de ser cadastrado!"
+            else:
+                return "CPF inválido"
         else:
-            return "CPF inválido"
-    else:
-        return "Usuário já cadastrado"
+            return "Usuário já cadastrado"
 
 
 def validar_cpf(cpf):
