@@ -18,27 +18,6 @@ class ContaCorrente(Conta):
         self._limite_saques = novo_limite_saques
 
     @staticmethod
-    def sacar(contas):
-        id_conta = int(input("Coloque o id da sua conta: "))
-        for conta in contas:
-            if conta.id == id_conta:
-                if conta._limite_saques <= conta._quantidade_limite_saques:
-                    valor = float(input("Coloque o valor do saque: "))
-                    saldo = conta.saldo
-
-                    if saldo > valor:
-                        return "Valor do saque maior que saldo"
-                    elif saldo > 0:
-                        conta._saldo -= valor
-                        conta._limite_saques += 1
-                        return "Saque realizado"
-                    else:
-                        return "Valor de saque inválido"
-                else:
-                    return "Quantidade de saques excedido"
-            return f"Conta com id {id} não encontrada"
-
-    @staticmethod
     def nova_conta(contas, clientes):
         cpf = input("Insira seu CPF: ")
         condicao, cliente = buscar_cpf(clientes, cpf)
@@ -52,8 +31,25 @@ class ContaCorrente(Conta):
             return "Não existe cliente com esse cpf"
 
 
+
+    def sacar(self, valor, contas):
+        for conta in contas:
+            if conta._id == self._id:
+                if conta.limite_saques <= conta.quantidade_limite_saques:
+                    if conta._saldo < valor:
+                        return "Valor do saque maior que saldo"
+                    elif conta._saldo > 0:
+                        conta._saldo -= valor
+                        return "Saque realizado"
+                    else:
+                        return "Valor de saque inválido"
+                else:
+                    return "Quantidade de saques excedido"
+        return "Conta não encontrada"
+
+
+
+
     def __str__(self):
-        return f"ContaCorrente(id={self.id}, cliente={self.cliente}, saldo={self.saldo}, limite={self._limite})"
-
-
+        return f"ContaCorrente(id={self.id}, cliente={self.cliente}, saldo={self.saldo}, limite={self._limite}, historico={self._historico})"
 

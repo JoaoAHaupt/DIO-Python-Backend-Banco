@@ -1,4 +1,4 @@
-import Historico
+from Historico import *
 from buscar_cpf import *
 
 
@@ -8,11 +8,19 @@ class Conta:
         self._id = id
         self._agencia = "0001"
         self._cliente = cliente
-        self._historico = "lepo"
+        self._historico = Historico()
 
     @property
     def saldo(self):
         return self._saldo
+
+    @property
+    def historico(self):
+        return self._historico
+
+    @saldo.setter
+    def saldo(self, valor):
+        self._saldo = valor
 
     @property
     def cliente(self):
@@ -38,26 +46,16 @@ class Conta:
         else:
             return "Não existe cliente com esse cpf"
 
-    @staticmethod
-    def depositar(contas):
-        id_conta = int(input("Coloque o id da sua conta: "))
-        for conta in contas:
-            if conta.id == id_conta:
-                valor = float(input("Coloque o valor do depósito: "))
-
-                if valor < 0:
-                    return "Valor do depósito tem que ser positivo"
-                else:
+    def depositar(self, valor, contas):
+        if valor <= 0:
+            return "Valor do depósito tem que ser positivo"
+        else:
+            for conta in contas:
+                if conta._id == self._id:
                     conta._saldo += valor
                     return "Depósito realizado com sucesso!"
-        return f"Conta com id {id_conta} não encontrada"
+            return "Conta não encontrada"
 
 
 def novo_id(contas):
-    return contas[-1]._id + 1 if contas else 1
-
-
-
-
-
-
+    return contas[-1].id + 1 if contas else 1
