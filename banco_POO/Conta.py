@@ -55,6 +55,13 @@ class Conta:
                     return "Depósito realizado com sucesso!"
             return "Conta não encontrada"
 
+    def gerador_extrato(self, tipo):
+
+        for acao in self._historico.transacoes:
+            if tipo in acao:
+                print(acao)
+
+
 
 def novo_id(contas):
     return contas[-1].id + 1 if contas else 1

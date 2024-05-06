@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class Historico:
     def __init__(self):
         self._transacoes = []
@@ -13,7 +14,14 @@ class Historico:
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
+                "data": datetime.now(),
 
             }
         )
+
+    def mostrar_historico(self, tipo=None):
+        for transacao in self._transacoes:
+            if tipo is None or transacao["tipo"].lower() == tipo.lower():
+                yield transacao
+
 

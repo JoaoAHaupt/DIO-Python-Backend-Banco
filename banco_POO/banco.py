@@ -9,19 +9,6 @@ from DecoradorDataHora import *
 def main():
     clientes = []
     contas = []
-    print('''
-    ================BANCO PY================
-    [NU] Novo Usuário
-    [NC] Nova Conta
-    [D]  Depositar
-    [S]  Sacar
-    [MC] Mostrar Contas
-    [MU] Mostrar Usuários
-    [H]  Histórico
-    [Q]  Sair
-    
-    
-    ''')
 
     @decorador_data_hora
     def sacar():
@@ -58,9 +45,27 @@ def main():
     @decorador_data_hora
     def mostrar_contas():
         for conta in contas:
-            print(conta)
+            print("=============")
+            print(f"Nome Cliente: {conta._cliente}")
+            print(f"ID: {conta._id}")
+            print(f"Saldo: {conta._saldo}")
+            print(f"Agencia: {conta._agencia}")
+            print("=============")
 
     @decorador_data_hora
+    def mostrar_extrato():
+        id = int(input("Digite o ID da conta: "))
+        conta = procurar_conta(id, contas)
+        lepo = input("Qual tipo? (Depostio ou Saque)")
+        print("================EXTRATO================")
+        for e in conta._historico.mostrar_historico(lepo):
+            print('---------------')
+            print(e["data"])
+            print(f"{e['tipo']}: {e['valor']}")
+
+        print('---------------')
+        print("=======================================")
+
     def novo_usuario(clientes):
         nome = input("Insira seu nome: ")
         cpf = input("Insira seu cpf: ")
@@ -77,7 +82,6 @@ def main():
         else:
             return "Usuário já cadastrado"
 
-    @decorador_data_hora
     def nova_conta(contas, clientes):
         cpf = input("Insira seu CPF: ")
         condicao, cliente = buscar_cpf(clientes, cpf)
@@ -93,14 +97,6 @@ def main():
     def mostrar_clientes():
         for cliente in clientes:
             print(cliente)
-
-    def mostrar_historico():
-        id = int(input("Coloque o id da conta: "))
-        for conta in contas:
-            if conta.id == id:
-                print(f"Conta={conta.cliente}")
-                for acao in conta.historico.transacoes:
-                    print(acao)
 
     def procurar_conta(id, contas):
         baixo = 0
@@ -120,6 +116,20 @@ def main():
 
     while True:
 
+        print('''
+        ================BANCO PY================
+        [NU] Novo Usuário
+        [NC] Nova Conta
+        [D]  Depositar
+        [S]  Sacar
+        [MC] Mostrar Contas
+        [MU] Mostrar Usuários
+        [E]  Extrato
+        [Q]  Sair
+
+
+        ''')
+
         opc = input().upper()
 
         if opc == "NU":
@@ -134,9 +144,8 @@ def main():
             mostrar_contas()
         elif opc == "MU":
             mostrar_clientes()
-        elif opc == "H":
-            mostrar_historico()
-
+        elif opc == "E":
+            mostrar_extrato()
         elif opc == "Q":
             input("Saindo do banco")
             break
