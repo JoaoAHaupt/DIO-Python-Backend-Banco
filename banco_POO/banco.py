@@ -56,15 +56,18 @@ def main():
     def mostrar_extrato():
         id = int(input("Digite o ID da conta: "))
         conta = procurar_conta(id, contas)
-        lepo = input("Qual tipo? (Depostio ou Saque)")
-        print("================EXTRATO================")
-        for e in conta._historico.mostrar_historico(lepo):
-            print('---------------')
-            print(e["data"])
-            print(f"{e['tipo']}: {e['valor']}")
+        if conta:
+            lepo = input("Qual tipo? (Depostio ou Saque)")
+            print("================EXTRATO================")
+            for e in conta._historico.mostrar_historico(lepo):
+                print('---------------')
+                print(e["data"])
+                print(f"{e['tipo']}: {e['valor']}")
 
-        print('---------------')
-        print("=======================================")
+            print('---------------')
+            print("=======================================")
+        else:
+            print("Conta não encontrada")
 
     def novo_usuario(clientes):
         nome = input("Insira seu nome: ")
@@ -133,9 +136,9 @@ def main():
         opc = input().upper()
 
         if opc == "NU":
-            novo_usuario(clientes)
+            print(novo_usuario(clientes))
         elif opc == "NC":
-            nova_conta(contas, clientes)
+            print(nova_conta(contas, clientes))
         elif opc == "D":
             depositar()
         elif opc == "S":

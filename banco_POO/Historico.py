@@ -20,6 +20,7 @@ class Historico:
         )
 
     def mostrar_historico(self, tipo=None):
+        if tipo == "": tipo = None
         for transacao in self._transacoes:
             if tipo is None or transacao["tipo"].lower() == tipo.lower():
                 yield transacao
