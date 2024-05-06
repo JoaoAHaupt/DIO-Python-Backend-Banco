@@ -3,7 +3,6 @@ from buscar_cpf import buscar_cpf
 import re
 
 
-
 class PessoaFisica(Cliente):
     def __init__(self, cpf, nome, data_de_nascimento, cep):
         super().__init__(cep)
@@ -21,24 +20,6 @@ class PessoaFisica(Cliente):
 
     def __str__(self):
         return f"PessoaFisica(nome={self.nome}, cpf={self.cpf})"
-
-
-    @staticmethod
-    def novo_usuario(clientes):
-        nome = input("Insira seu nome: ")
-        cpf = input("Insira seu cpf: ")
-        data_de_nascimento = input("Insira sua data de nascimento: ")
-        cep = input("Insira seu cep: ")
-
-        if not buscar_cpf(clientes, cpf):
-            if validar_cpf(cpf):
-                novo = PessoaFisica(cpf, nome, data_de_nascimento, cep)
-                clientes.append(novo)
-                return f"Usuario: {novo.nome} acabou de ser cadastrado!"
-            else:
-                return "CPF inválido"
-        else:
-            return "Usuário já cadastrado"
 
 
 def validar_cpf(cpf):
@@ -63,8 +44,3 @@ def validar_cpf(cpf):
         if restos[1] == int(cpf[len(cpf) - 1]):
             return True
         return False
-
-
-
-
-

@@ -17,21 +17,6 @@ class ContaCorrente(Conta):
     def limite_saques(self, novo_limite_saques):
         self._limite_saques = novo_limite_saques
 
-    @staticmethod
-    def nova_conta(contas, clientes):
-        cpf = input("Insira seu CPF: ")
-        condicao, cliente = buscar_cpf(clientes, cpf)
-
-        if condicao:
-            id = novo_id(contas)
-            nova_conta = ContaCorrente(id, cliente)
-            contas.append(nova_conta)
-            return f"Conta criada com sucesso! ID = {id}"
-        else:
-            return "Não existe cliente com esse cpf"
-
-
-
     def sacar(self, valor, contas):
         for conta in contas:
             if conta._id == self._id:
@@ -47,9 +32,5 @@ class ContaCorrente(Conta):
                     return "Quantidade de saques excedido"
         return "Conta não encontrada"
 
-
-
-
     def __str__(self):
         return f"ContaCorrente(id={self.id}, cliente={self.cliente}, saldo={self.saldo}, limite={self._limite}, historico={self._historico})"
-

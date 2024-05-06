@@ -1,7 +1,6 @@
 from Historico import *
 from buscar_cpf import *
 
-
 class Conta:
     def __init__(self, id, cliente):
         self._saldo = 0
@@ -30,7 +29,6 @@ class Conta:
     def id(self):
         return self._id
 
-
     def saldo_mostrar(self):
         return f"Cliente: {self._cliente} tem conta com id {self._id} com saldo {self._saldo}"
 
@@ -45,6 +43,7 @@ class Conta:
             return f"Conta criada com sucesso! ID = {id}"
         else:
             return "Não existe cliente com esse cpf"
+
 
     def depositar(self, valor, contas):
         if valor <= 0:
