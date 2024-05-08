@@ -10,7 +10,7 @@ class Historico:
         return self._transacoes
 
     def adicionar_transacao(self, transacao):
-        self._transacoes.append(
+        self._transacoes.insert(0,
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,

@@ -10,6 +10,17 @@ def main():
     clientes = []
     contas = []
 
+    def verificar_limite(conta):
+        limite = 0
+        for transacao in conta._historico._transacoes:
+            print(transacao["data"].date())
+            print(datetime.now().date())
+            if transacao["data"].date() == datetime.now().date():
+                limite += 1
+        if limite == 10:
+            return False
+        return True
+
     @decorador_data_hora
     def sacar():
         id_conta = int(input("Coloque o id da sua conta: "))
@@ -17,10 +28,11 @@ def main():
         if conta:
             cliente = ContaCorrente(conta.id, conta.cliente)
             valor = float(input("Coloque o valor do saque: "))
-
-            if cliente.sacar(valor, contas):
+            if not verificar_limite(conta):
+                print(f"Limites de ações do dia {datetime.now().date()} atingido")
+            elif cliente.sacar(valor, contas):
                 Saque(valor).registrar(conta)
-                print("Depósito registrado com sucesso!")
+                print("Saque registrado com sucesso!")
             else:
                 print("Falha ao efetuar o saque. Verifique o valor e tente novamente.")
         else:
@@ -33,8 +45,11 @@ def main():
         if conta:
             cliente = ContaCorrente(conta.id, conta.cliente)
             valor = float(input("Coloque o valor do depósito: "))
+            verificar_limite(conta)
 
-            if cliente.depositar(valor, contas):
+            if not verificar_limite(conta):
+                print(f"Limites de ações do dia {datetime.now().date()} atingido")
+            elif cliente.depositar(valor, contas):
                 Deposito(valor).registrar(conta)
                 print("Depósito registrado com sucesso!")
             else:
