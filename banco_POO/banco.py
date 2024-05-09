@@ -13,10 +13,10 @@ def main():
     def verificar_limite(conta):
         limite = 0
         for transacao in conta._historico._transacoes:
-            print(transacao["data"].date())
-            print(datetime.now().date())
             if transacao["data"].date() == datetime.now().date():
                 limite += 1
+            else:
+                break
         if limite == 10:
             return False
         return True
@@ -61,7 +61,7 @@ def main():
     def mostrar_contas():
         for conta in contas:
             print("=============")
-            print(f"Nome Cliente: {conta._cliente}")
+            print(f"Nome Cliente: {conta._cliente._nome}")
             print(f"ID: {conta._id}")
             print(f"Saldo: {conta._saldo}")
             print(f"Agencia: {conta._agencia}")
@@ -147,7 +147,6 @@ def main():
 
 
         ''')
-
         opc = input().upper()
 
         if opc == "NU":

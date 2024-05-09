@@ -1,5 +1,6 @@
 from Historico import *
 from buscar_cpf import *
+from RegistroLog import *
 
 class Conta:
     def __init__(self, id, cliente):
@@ -44,7 +45,7 @@ class Conta:
         else:
             return "Não existe cliente com esse cpf"
 
-
+    @decorador_log
     def depositar(self, valor, contas):
         if valor <= 0:
             return "Valor do depósito tem que ser positivo"
@@ -52,7 +53,7 @@ class Conta:
             for conta in contas:
                 if conta._id == self._id:
                     conta._saldo += valor
-                    return "Depósito realizado com sucesso!"
+                    return "Depósito realizado com sucesso!", [self, valor]
             return "Conta não encontrada"
 
     def gerador_extrato(self, tipo):

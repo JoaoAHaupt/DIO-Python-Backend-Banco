@@ -5,6 +5,8 @@
 
 <img src="https://hermes.dio.me/tracks/648ef080-6c4b-4e54-bf72-34f62030f350.png" width="450px" >
     <h3>Uma desafio simples e fácil que consiste em criar um pequeno programa que simule um banco. Básicas operações de saque, depósito e ver extrato.</h3>
+     <h4>Em algumas propostas decidi fazer mudanças para tornar mais desafiador e ter um programa mais completo</h4>
+    
 </div>
 
 

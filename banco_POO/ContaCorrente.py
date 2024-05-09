@@ -1,5 +1,6 @@
 from Conta import *
 from buscar_cpf import *
+from RegistroLog import *
 
 
 class ContaCorrente(Conta):
@@ -17,6 +18,7 @@ class ContaCorrente(Conta):
     def limite_saques(self, novo_limite_saques):
         self._limite_saques = novo_limite_saques
 
+    @decorador_log
     def sacar(self, valor, contas):
         for conta in contas:
             if conta._id == self._id:
@@ -25,7 +27,7 @@ class ContaCorrente(Conta):
                         return "Valor do saque maior que saldo"
                     elif conta._saldo > 0:
                         conta._saldo -= valor
-                        return "Saque realizado"
+                        return "Saque realizado", [self, valor]
                     else:
                         return "Valor de saque inválido"
                 else:
